@@ -52,21 +52,21 @@ bool Frame::load_files()
     brick_sprite = image_load("images/brick.png", 0xFF,0,0xFF);
     if(brick_sprite == NULL)
     {
-        log("brick.png not found");
+        log("images/brick.png not found");
         return false;
     }
 
-    brickStrong_sprite = image_load("images/brickStrong1.png", 0xFF,0,0xFF);
+    brickStrong_sprite = image_load("images/brick_strong.png", 0xFF,0,0xFF);
     if(brickStrong_sprite == NULL)
     {
-        log("brickStrong.png not found");
+        log("images/brick_strong.png not found");
         return false;
     }
 
-    brickBeton_sprite = image_load("images/BetonBrick.png", 0xFF,0,0xFF);
+    brickBeton_sprite = image_load("images/brick_beton.png", 0xFF,0,0xFF);
     if(brickBeton_sprite == NULL)
     {
-        log("BetonBrick.png not found");
+        log("images/brick_beton.png");
         return false;
     }
 
