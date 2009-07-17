@@ -9,4 +9,4 @@ dist_image_DATA = \
 
 EXTRA_DIST = $(dist_image_DATA)
 
-createdirs: ${imagedir}
+# createdirs: ${imagedir}

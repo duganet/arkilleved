@@ -1,5 +1,5 @@
-SUBDIRS = images
+SUBDIRS = fonts images
 
 #createdirs: ${pkgdatadir}
-uninstall-local:
-	rm -rf ${pkgdatadir}
+#uninstall-local:
+#	rm -rf ${pkgdatadir}

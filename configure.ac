@@ -13,4 +13,4 @@ AC_CHECK_LIB([SDL_ttf], [TTF_Init])
 ##AC_SUBST(PDATADIR)
 ##AC_DEFINE_UNQUOTED([PDATADIR], [${PDATADIR}], [Package data dir])
 
-AC_OUTPUT([Makefile src/Makefile data/Makefile data/images/Makefile])
+AC_OUTPUT([Makefile src/Makefile data/Makefile data/fonts/Makefile data/images/Makefile])
