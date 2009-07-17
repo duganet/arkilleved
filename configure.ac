@@ -9,6 +9,8 @@ AC_CHECK_LIB([SDL], [SDL_Init])
 AC_CHECK_LIB([SDL_image], [IMG_LoadPNG_RW])
 AC_CHECK_LIB([SDL_ttf], [TTF_Init])
 
-AC_DEFINE_UNQUOTED(DATADIR, "${pkgdatadir}"
+##PDATADIR="${PREFIX}/share/${PACKAGE}"
+##AC_SUBST(PDATADIR)
+##AC_DEFINE_UNQUOTED([PDATADIR], [${PDATADIR}], [Package data dir])
 
 AC_OUTPUT([Makefile src/Makefile data/Makefile data/images/Makefile])
