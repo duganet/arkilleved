@@ -1,4 +1,4 @@
-dir_image=${pkgdatadir}/images
+imagedir=${pkgdatadir}/images
 dist_image_DATA = \
 	bg.bmp \
 	brick_beton.png \
