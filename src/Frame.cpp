@@ -37,7 +37,7 @@ bool Frame::init()
         log("ERROR: set video mode faled");
         return false;
     }
-    SDL_WM_SetCaption("LevelEditor", NULL);
+    SDL_WM_SetCaption("Arkilloid Level Editor", NULL);
 
     if(TTF_Init() == -1)
     {
@@ -49,42 +49,53 @@ bool Frame::init()
 
 bool Frame::load_files()
 {
-    brick_sprite = image_load("images/brick.png", 0xFF,0,0xFF);
+    std::string imagedir;
+    std::string img_filename;
+    #ifdef WIN32
+    imagedir = "images";
+    #else
+    imagedir = "../share/arkilloid-leveledit/images";
+    #endif
+    log(pkgdatadir);
+    img_filename = imagedir + "/brick.png";
+    brick_sprite = image_load(img_filename, 0xFF,0,0xFF);
     if(brick_sprite == NULL)
     {
-        log("images/brick.png not found");
+        log(img_filename + " not found");
         return false;
     }
 
-    brickStrong_sprite = image_load("images/brick_strong.png", 0xFF,0,0xFF);
+    img_filename = imagedir + "/brick_strong.png";
+    brickStrong_sprite = image_load(img_filename, 0xFF,0,0xFF);
     if(brickStrong_sprite == NULL)
     {
-        log("images/brick_strong.png not found");
+        log(img_filename + " not found");
         return false;
     }
 
-    brickBeton_sprite = image_load("images/brick_beton.png", 0xFF,0,0xFF);
+    img_filename = imagedir + "/brick_beton.png";
+    brickBeton_sprite = image_load(img_filename, 0xFF,0,0xFF);
     if(brickBeton_sprite == NULL)
     {
-        log("images/brick_beton.png");
+        log(img_filename + " not found");
         return false;
     }
-
-    sprite_btnSave = image_load("images/button_save.png",0xFF,0,0xFF);
+    img_filename = imagedir + "/button_save.png";
+    sprite_btnSave = image_load(img_filename, 0xFF,0,0xFF);
     if(sprite_btnSave == NULL)
     {
-        log("images/button_save.png not found");
+        log(img_filename + " not found");
         return false;
     }
-
-    sprite_btnLoad = image_load("images/button_open.png", 0xFF,0,0xFF);
+    img_filename = imagedir + "/button_open.png";
+    sprite_btnLoad = image_load(img_filename, 0xFF,0,0xFF);
     if(sprite_btnLoad == NULL)
     {
-        log("images/button_open.png not found");
+        log(img_filename + " not found");
         return false;
     }
-
-    bg = image_load("images/bg.bmp");
+    img_filename = imagedir + "/bg.bmp";
+    bg = image_load(img_filename);
 
     font = TTF_OpenFont("fonts/aerial.ttf", 10);
     if(font == NULL)
