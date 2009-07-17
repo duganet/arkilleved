@@ -2,7 +2,12 @@
 
 # Script to generate configure script and Makefile.in files
 
+echo "Running aclocal..."
 aclocal
+echo "Running autoconf to set macros..."
 autoconf
+echo "Invoking automake..."
 automake --add-missing
+echo "Running autoconf to generate ./configure script"
 autoconf
+echo "Now type ./configure to create build scripts"
