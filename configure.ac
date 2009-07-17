@@ -1,6 +1,6 @@
 ##AC_INIT([src/main.cpp])
 AC_INIT([Arkilloid Level Editor],[0.0.1],[http://arkilloid.duganet.ru/],[arkilloid-leveledit])
-AM_INIT_AUTOMAKE([arkilloid_leveledit],[0.0.1])
+AM_INIT_AUTOMAKE([arkilloid-leveledit],[0.0.1])
 AC_PROG_CXX
 AC_PROG_MAKE_SET
 AM_CONFIG_HEADER([src/config.h])

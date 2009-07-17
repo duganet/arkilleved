@@ -1,4 +1,5 @@
 //Frame.cpp
+#include "config.h"
 #include "Frame.h"
 #include <fstream>
 #include <sstream>
@@ -49,14 +50,16 @@ bool Frame::init()
 
 bool Frame::load_files()
 {
-    std::string imagedir;
-    std::string img_filename;
+    std::string fontsdir, imagedir, font_filename, img_filename;
     #ifdef WIN32
     imagedir = "images";
+    fontsdir = "fonts";
     #else
+    /*imagedir = "../share/" + PACKAGE + "/images";
+    fontsdir = "../share/" + PACKAGE + "/fonts";*/
     imagedir = "../share/arkilloid-leveledit/images";
+    fontsdir = "../share/arkilloid-leveledit/fonts";
     #endif
-    log(pkgdatadir);
     img_filename = imagedir + "/brick.png";
     brick_sprite = image_load(img_filename, 0xFF,0,0xFF);
     if(brick_sprite == NULL)
@@ -97,10 +100,11 @@ bool Frame::load_files()
     img_filename = imagedir + "/bg.bmp";
     bg = image_load(img_filename);
 
-    font = TTF_OpenFont("fonts/aerial.ttf", 10);
+    font_filename = fontsdir + "/aerial.ttf";
+    font = TTF_OpenFont(font_filename.c_str(), 10);
     if(font == NULL)
     {
-        log("ERROR: font not load");
+        log("ERROR: " + fontsdir + "/aerial.ttf not found");
         return false;
     }
     return true;
