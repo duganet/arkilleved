@@ -1,5 +1,5 @@
 //Frame.cpp
-#include "config.h"
+//#include "config.h"
 #include "Frame.h"
 #include <fstream>
 #include <sstream>
@@ -32,7 +32,7 @@ bool Frame::init()
         log("ERROR: init failed");
         return false;
     }
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE);
     if(screen == NULL)
     {
         log("ERROR: set video mode faled");
@@ -97,7 +97,7 @@ bool Frame::load_files()
         log(img_filename + " not found");
         return false;
     }
-    img_filename = imagedir + "/bg.bmp";
+    img_filename = imagedir + "/bg.png";
     bg = image_load(img_filename);
 
     font_filename = fontsdir + "/aerial.ttf";
