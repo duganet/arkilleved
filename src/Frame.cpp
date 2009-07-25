@@ -51,7 +51,7 @@ bool Frame::init()
 bool Frame::load_files()
 {
     std::string fontsdir, imagedir, font_filename, img_filename;
-    #ifdef WIN32
+    #ifndef WIN32
     imagedir = "images";
     fontsdir = "fonts";
     #else
