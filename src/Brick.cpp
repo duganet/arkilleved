@@ -1,12 +1,15 @@
 //Brick.cpp
 #include "Brick.h"
 #include <sstream>
+
 std::vector<Brick*> Brick::brickList;
+extern std::vector<Texture*> textureList;
 
 Brick::Brick(SDL_Surface *sprite, int type)
 {
     drag = true;
     this->sprite = sprite;
+    //texture.load_from_surface(sprite);
     box.x = 300;
     box.y = 300;
     box.w = sprite->w;
@@ -21,12 +24,14 @@ Brick::Brick(SDL_Surface *sprite, int type)
         log(ss.str());
     }
     coord = NULL;
+    //coord_tex = new Texture();
 }
 
 Brick::Brick(SDL_Surface *sprite, int type, int x, int y)
 {
     drag = false;
     this->sprite = sprite;
+    //texture.load_from_surface(sprite);
     box.x = x;
     box.y = y;
     box.w = sprite->w;
@@ -41,6 +46,7 @@ Brick::Brick(SDL_Surface *sprite, int type, int x, int y)
         log(ss.str());
     }
     coord = NULL;
+    //coord_tex = new Texture();
 }
 
 Brick::~Brick()
@@ -100,22 +106,44 @@ void Brick::handle_events(SDL_Event &event)
 
 void Brick::show(SDL_Surface *screen, TTF_Font *font)
 {
-    SDL_Color color = {0,0,0};
-    for(unsigned int i = 0; i < Brick::brickList.size(); i++)
-        {
-            if(Brick::brickList[i]->get_drag() == true)
-            {
-                std::stringstream ss;
-                ss << "x: "
-                   << Brick::brickList[i]->get_rect().x
-                   << " y: "
-                   << Brick::brickList[i]->get_rect().y;
-                coord = TTF_RenderText_Solid(font, ss.str().c_str(), color);
-                apply_surface(300,10,coord,screen);
-            }
-        }
+//    SDL_Color color = {1,0,1};
+//    SDL_Color color_bg = {1,0,0};
+//    for(unsigned int i = 0; i < Brick::brickList.size(); i++)
+//        {
+//            if(Brick::brickList[i]->get_drag() == true)
+//            {
+//                Texture *coord_tex = new Texture();
+//                std::stringstream ss;
+//                ss << "x: "
+//                   << Brick::brickList[i]->get_rect().x
+//                   << " y: "
+//                   << Brick::brickList[i]->get_rect().y;
+//                coord = TTF_RenderText_Shaded(font, ss.str().c_str(), color, color_bg);
+//                coord_tex->load_from_surface(coord);
+//                coord_tex->show(300,10);
+//                SDL_FreeSurface(coord);
+//                delete coord_tex;
+//                apply_surface(300,10,coord,screen);
+//            }
+//        }
 
-    apply_surface(box.x, box.y, sprite, screen);
+    //apply_surface(box.x, box.y, sprite, screen);
+    //texture.show(box.x, box.y);
+    switch(type)
+    {
+    case BRICK:
+        textureList[BRICK_TEX]->show(box.x, box.y);
+        break;
+    case BRICK_STRONG:
+        textureList[BRICK_STRONG_TEX]->show(box.x, box.y);
+        break;
+    case BRICK_BETON:
+        textureList[BRICK_BETON_TEX]->show(box.x, box.y);
+        break;
+    default:
+        break;
+    }
+
 }
 
 SDL_Rect Brick::get_rect()

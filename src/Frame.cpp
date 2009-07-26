@@ -7,6 +7,8 @@
 SDL_Surface* Frame::brickStrong_sprite;
 SDL_Surface* Frame::brick_sprite;
 SDL_Surface* Frame::brickBeton_sprite;
+extern std::vector<Texture*> textureList;
+//extern std::vector<Brick*> Brick::brickList;
 
 Frame::Frame()
 {
@@ -25,6 +27,26 @@ Frame::~Frame()
     exit();
 }
 
+bool Frame::initGL()
+{
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+    glEnable( GL_TEXTURE_2D );
+    glClearColor(1,1,1,1);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    if(glGetError() != GL_NO_ERROR)
+    {
+        log("ERROR: gl not init, " + glGetError());
+        return false;
+    }
+    return true;
+}
+
 bool Frame::init()
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -32,7 +54,7 @@ bool Frame::init()
         log("ERROR: init failed");
         return false;
     }
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE);
+    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_OPENGL);
     if(screen == NULL)
     {
         log("ERROR: set video mode faled");
@@ -45,13 +67,18 @@ bool Frame::init()
         log("ERROR: TTF not init");
         return false;
     }
+
+    if(initGL() == false)
+    {
+        return false;
+    }
     return true;
 }
 
 bool Frame::load_files()
 {
     std::string fontsdir, imagedir, font_filename, img_filename;
-    #ifndef WIN32
+    #ifdef WIN32
     imagedir = "images";
     fontsdir = "fonts";
     #else
@@ -61,44 +88,76 @@ bool Frame::load_files()
     fontsdir = "../share/arkilloid-leveledit/fonts";
     #endif
     img_filename = imagedir + "/brick.png";
-    brick_sprite = image_load(img_filename, 0xFF,0,0xFF);
+    brick_sprite = IMG_Load(img_filename.c_str());
     if(brick_sprite == NULL)
     {
         log(img_filename + " not found");
         return false;
     }
+    Texture *texture = new Texture();
+    texture->load_from_surface(brick_sprite);
+    textureList.push_back(texture);
+    SDL_FreeSurface(brick_sprite);
 
     img_filename = imagedir + "/brick_strong.png";
-    brickStrong_sprite = image_load(img_filename, 0xFF,0,0xFF);
+    brickStrong_sprite = IMG_Load(img_filename.c_str());
     if(brickStrong_sprite == NULL)
     {
         log(img_filename + " not found");
         return false;
     }
+    Texture *texture1 = new Texture();
+    texture1->load_from_surface(brickStrong_sprite);
+    textureList.push_back(texture1);
+    SDL_FreeSurface(brickStrong_sprite);
 
     img_filename = imagedir + "/brick_beton.png";
-    brickBeton_sprite = image_load(img_filename, 0xFF,0,0xFF);
+    brickBeton_sprite = IMG_Load(img_filename.c_str());
     if(brickBeton_sprite == NULL)
     {
         log(img_filename + " not found");
         return false;
     }
+    Texture *texture2 = new Texture();
+    texture2->load_from_surface(brickBeton_sprite);
+    textureList.push_back(texture2);
+    SDL_FreeSurface(brickBeton_sprite);
+
     img_filename = imagedir + "/button_save.png";
-    sprite_btnSave = image_load(img_filename, 0xFF,0,0xFF);
+    sprite_btnSave = IMG_Load(img_filename.c_str());
     if(sprite_btnSave == NULL)
     {
         log(img_filename + " not found");
         return false;
     }
+    Texture *texture3 = new Texture();
+    texture3->load_from_surface(sprite_btnSave);
+    textureList.push_back(texture3);
+    SDL_FreeSurface(sprite_btnSave);
+
     img_filename = imagedir + "/button_open.png";
-    sprite_btnLoad = image_load(img_filename, 0xFF,0,0xFF);
+    sprite_btnLoad = IMG_Load(img_filename.c_str());
     if(sprite_btnLoad == NULL)
     {
         log(img_filename + " not found");
         return false;
     }
+    Texture *texture4 = new Texture();
+    texture4->load_from_surface(sprite_btnLoad);
+    textureList.push_back(texture4);
+    //SDL_FreeSurface(sprite_btnLoad);
+
     img_filename = imagedir + "/bg.png";
-    bg = image_load(img_filename);
+    bg = IMG_Load(img_filename.c_str());
+    if(bg == NULL)
+    {
+        log(img_filename + " not found");
+        return false;
+    }
+    Texture *texture5 = new Texture();
+    texture5->load_from_surface(bg);
+    textureList.push_back(texture5);
+    SDL_FreeSurface(bg);
 
     font_filename = fontsdir + "/aerial.ttf";
     font = TTF_OpenFont(font_filename.c_str(), 10);
@@ -194,12 +253,11 @@ bool Frame::main_loop()
         log("ERROR: files not load");
         return false;
     }
-
-    Button *buttonBrick = new Button(100,0, brick_sprite);
-    Button *buttonStrongBrick = new Button(134,0, brickStrong_sprite);
-    Button *buttonBetonBrick = new Button(168,0, brickBeton_sprite);
-    Button *buttonSave = new Button(34,0,sprite_btnSave);
-    Button *buttonLoad = new Button(0,0,sprite_btnLoad);
+    Button *buttonBrick = new Button(100,0, textureList[BRICK_TEX]);
+    Button *buttonStrongBrick = new Button(134,0, textureList[BRICK_STRONG_TEX]);
+    Button *buttonBetonBrick = new Button(168,0, textureList[BRICK_BETON_TEX]);
+    Button *buttonSave = new Button(34,0,textureList[BTN_SAVE_TEX]);
+    Button *buttonLoad = new Button(0,0,textureList[BTN_LOAD_TEX]);
     Timer fps;
     log("loop start");
     while(quit == false)
@@ -225,13 +283,15 @@ bool Frame::main_loop()
                 }
             }
         }
-        apply_surface(0,0,bg,screen);
-        //SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format,255, 255, 255));
-        buttonBrick->show(screen);
-        buttonStrongBrick->show(screen);
-        buttonBetonBrick->show(screen);
-        buttonSave->show(screen);
-        buttonLoad->show(screen);
+        glClear(GL_COLOR_BUFFER_BIT);
+        textureList[BG_TEX]->show(0,0);
+//        apply_surface(0,0,bg,screen);
+//        SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format,255, 255, 255));
+        buttonBrick->show();
+        buttonStrongBrick->show();
+        buttonBetonBrick->show();
+        buttonSave->show();
+        buttonLoad->show();
         if(Brick::brickList.size() > 0)
         {
             for(unsigned int i = 0; i < Brick::brickList.size();i++)
@@ -240,17 +300,14 @@ bool Frame::main_loop()
             }
         }
 
-        if(SDL_Flip(screen) == -1)
-        {
-            log("ERROR: SDL_Flip(screen) = -1");
-            return false;
-        }
+        SDL_GL_SwapBuffers();
 
         if(fps.Get_Ticks() < 1000/FRAMES_PER_SECOND)
         {
             SDL_Delay((1000/FRAMES_PER_SECOND) - fps.Get_Ticks());
         }
     }
+    //exit();
     return true;
 }
 
@@ -264,5 +321,16 @@ void Frame::exit()
     SDL_FreeSurface(brickBeton_sprite);
     SDL_FreeSurface(bg);
     TTF_CloseFont(font);
+
+    for(unsigned int i = 0; i < Brick::brickList.size(); i++)
+    {
+       Brick::brickList.erase(Brick::brickList.begin(), Brick::brickList.end());
+    }
+
+    for(unsigned int i = 0; i < textureList.size(); i++)
+    {
+       textureList.erase(textureList.begin(), textureList.end());
+    }
     TTF_Quit();
+    SDL_Quit();
 }

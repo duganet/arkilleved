@@ -4,7 +4,7 @@
 extern std::ofstream loger;
 extern int stateID;
 extern int nextState;
-
+extern std::vector<Texture> textureList;
 
 Button::Button(int x, int y, std::string filename)
 {
@@ -14,37 +14,40 @@ Button::Button(int x, int y, std::string filename)
         log("ERROR: button image not loaded!");
         stateID = STATE_EXIT;
     }
+    texture->load_from_surface(buttonSheet);
 
-    clips[CLIP_MOUSEOVER].x = 0;
-    clips[CLIP_MOUSEOVER].y = 0;
-    clips[CLIP_MOUSEOVER].w = buttonSheet->w;
-    clips[CLIP_MOUSEOVER].h = buttonSheet->h/2;
-
-    clips[CLIP_MOUSEOUT].x = 0;
-    clips[CLIP_MOUSEOUT].y = buttonSheet->h/2;
-    clips[CLIP_MOUSEOUT].w = buttonSheet->w;
-    clips[CLIP_MOUSEOUT].h = buttonSheet->h;
+//    clips[CLIP_MOUSEOVER].x = 0;
+//    clips[CLIP_MOUSEOVER].y = 0;
+//    clips[CLIP_MOUSEOVER].w = buttonSheet->w;
+//    clips[CLIP_MOUSEOVER].h = buttonSheet->h/2;
+//
+//    clips[CLIP_MOUSEOUT].x = 0;
+//    clips[CLIP_MOUSEOUT].y = buttonSheet->h/2;
+//    clips[CLIP_MOUSEOUT].w = buttonSheet->w;
+//    clips[CLIP_MOUSEOUT].h = buttonSheet->h;
 
     box.x = x;
     box.y = y;
     box.w = buttonSheet->w;
     box.h = buttonSheet->h/2;
 
-    clip = clips[CLIP_MOUSEOUT];
+    //clip = clips[CLIP_MOUSEOUT];
 }
 
-Button::Button(int x, int y, SDL_Surface*sprite)
+Button::Button(int x, int y, Texture* texture)
 {
-    buttonSheet = sprite;
+    //buttonSheet = sprite;
+    this->texture = new Texture();
+    this->texture = texture;
     box.x = x;
     box.y = y;
-    box.w = buttonSheet->w;
-    box.h = buttonSheet->h;
+    box.w = texture->w;
+    box.h = texture->h;
 }
 
 Button::~Button()
 {
-    SDL_FreeSurface(buttonSheet);
+    //SDL_FreeSurface(buttonSheet);
 }
 
 void Button::handle_events(SDL_Event &event,void(callback)(void))
@@ -101,7 +104,8 @@ void Button::handle_events(SDL_Event &event,void(callback)(void))
 //    }
 }
 
-void Button::show(SDL_Surface *screen)
+void Button::show()
 {
-    apply_surface(box.x, box.y,buttonSheet,screen);
+    texture->show(box.x,box.y);
+    //apply_surface(box.x, box.y,buttonSheet,screen);
 }

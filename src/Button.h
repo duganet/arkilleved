@@ -3,6 +3,7 @@
 #define BUTTON_H
 
 #include "SDLUtils.h"
+#include "Texture.h"
 
 enum
 {
@@ -16,15 +17,16 @@ class Button
 {
 public:
     Button(int x, int y, std::string filename);
-    Button(int x, int y, SDL_Surface* sprite);
+    Button(int x, int y, Texture* texture);
     ~Button();
     void handle_events(SDL_Event &event,void(callback)(void));
-    void show(SDL_Surface *screen);
+    void show();
 private:
     SDL_Rect box;
-    SDL_Rect clips[2];
-    SDL_Rect clip;
+    //SDL_Rect clips[2];
+    //SDL_Rect clip;
     SDL_Surface *buttonSheet;
+    Texture *texture;
 };
 
 #endif

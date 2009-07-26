@@ -2,9 +2,8 @@
 #ifndef BRICK_H
 #define BRICK_H
 #include "SDLUtils.h"
+#include "Texture.h"
 #include <vector>
-
-
 
 enum BrickType
 {
@@ -33,7 +32,9 @@ private:
     SDL_Rect box;
     SDL_Rect prev_box;
     SDL_Surface *sprite;
+    Texture texture;
     SDL_Surface *coord;
+    //Texture *coord_tex;
     int id;
     bool drag;
     int type;
