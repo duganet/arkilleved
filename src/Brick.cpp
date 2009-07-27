@@ -5,15 +5,15 @@
 std::vector<Brick*> Brick::brickList;
 extern std::vector<Texture*> textureList;
 
-Brick::Brick(SDL_Surface *sprite, int type)
+Brick::Brick(int type)
 {
     drag = true;
     this->sprite = sprite;
     //texture.load_from_surface(sprite);
     box.x = 300;
     box.y = 300;
-    box.w = sprite->w;
-    box.h = sprite->h;
+    box.w = textureList[BRICK_TEX]->w;
+    box.h = textureList[BRICK_TEX]->h;
     this->type = type;
     std::stringstream ss;
     for(unsigned int i = 0; i < Brick::brickList.size(); i++)
@@ -27,15 +27,13 @@ Brick::Brick(SDL_Surface *sprite, int type)
     //coord_tex = new Texture();
 }
 
-Brick::Brick(SDL_Surface *sprite, int type, int x, int y)
+Brick::Brick(int type, int x, int y)
 {
     drag = false;
-    this->sprite = sprite;
-    //texture.load_from_surface(sprite);
     box.x = x;
     box.y = y;
-    box.w = sprite->w;
-    box.h = sprite->h;
+    box.w = textureList[BRICK_TEX]->w;
+    box.h = textureList[BRICK_TEX]->h;
     this->type = type;
     std::stringstream ss;
     for(unsigned int i = 0; i < Brick::brickList.size(); i++)

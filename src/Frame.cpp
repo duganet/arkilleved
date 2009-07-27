@@ -4,9 +4,6 @@
 #include <fstream>
 #include <sstream>
 
-SDL_Surface* Frame::brickStrong_sprite;
-SDL_Surface* Frame::brick_sprite;
-SDL_Surface* Frame::brickBeton_sprite;
 extern std::vector<Texture*> textureList;
 //extern std::vector<Brick*> Brick::brickList;
 
@@ -14,11 +11,6 @@ Frame::Frame()
 {
     screen = NULL;
     quit = false;
-    brickStrong_sprite = NULL;
-    brick_sprite = NULL;
-    sprite_btnSave = NULL;
-    sprite_btnLoad = NULL;
-    bg = NULL;
     font = NULL;
 }
 
@@ -87,78 +79,61 @@ bool Frame::load_files()
     imagedir = "../share/arkilloid-leveledit/images";
     fontsdir = "../share/arkilloid-leveledit/fonts";
     #endif
+    //-----------------------------------------------------------
     img_filename = imagedir + "/brick.png";
-    brick_sprite = IMG_Load(img_filename.c_str());
-    if(brick_sprite == NULL)
+    Texture *brick_tex = new Texture;
+    if(brick_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture = new Texture();
-    texture->load_from_surface(brick_sprite);
-    textureList.push_back(texture);
-    SDL_FreeSurface(brick_sprite);
-
+    textureList.push_back(brick_tex);
+    //-----------------------------------------------------------
     img_filename = imagedir + "/brick_strong.png";
-    brickStrong_sprite = IMG_Load(img_filename.c_str());
-    if(brickStrong_sprite == NULL)
+    Texture *brickStrong_tex = new Texture;
+    if(brickStrong_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture1 = new Texture();
-    texture1->load_from_surface(brickStrong_sprite);
-    textureList.push_back(texture1);
-    SDL_FreeSurface(brickStrong_sprite);
-
+    textureList.push_back(brickStrong_tex);
+    //-----------------------------------------------------------
     img_filename = imagedir + "/brick_beton.png";
-    brickBeton_sprite = IMG_Load(img_filename.c_str());
-    if(brickBeton_sprite == NULL)
+    Texture *brickBeton_tex = new Texture;
+    if(brickBeton_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture2 = new Texture();
-    texture2->load_from_surface(brickBeton_sprite);
-    textureList.push_back(texture2);
-    SDL_FreeSurface(brickBeton_sprite);
-
+    textureList.push_back(brickBeton_tex);
+    //-----------------------------------------------------------
     img_filename = imagedir + "/button_save.png";
-    sprite_btnSave = IMG_Load(img_filename.c_str());
-    if(sprite_btnSave == NULL)
+    Texture *btnSave_tex = new Texture;
+    if(btnSave_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture3 = new Texture();
-    texture3->load_from_surface(sprite_btnSave);
-    textureList.push_back(texture3);
-    SDL_FreeSurface(sprite_btnSave);
-
+    textureList.push_back(btnSave_tex);
+    //-----------------------------------------------------------
     img_filename = imagedir + "/button_open.png";
-    sprite_btnLoad = IMG_Load(img_filename.c_str());
-    if(sprite_btnLoad == NULL)
+    Texture *btnLoad_tex = new Texture;
+    if(btnLoad_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture4 = new Texture();
-    texture4->load_from_surface(sprite_btnLoad);
-    textureList.push_back(texture4);
-    //SDL_FreeSurface(sprite_btnLoad);
-
+    textureList.push_back(btnLoad_tex);
+    //-----------------------------------------------------------
     img_filename = imagedir + "/bg.png";
-    bg = IMG_Load(img_filename.c_str());
-    if(bg == NULL)
+    Texture *bg_tex = new Texture;
+    if(bg_tex->load_from_file(img_filename) == false)
     {
-        log(img_filename + " not found");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    Texture *texture5 = new Texture();
-    texture5->load_from_surface(bg);
-    textureList.push_back(texture5);
-    SDL_FreeSurface(bg);
-
+    textureList.push_back(bg_tex);
+    //-----------------------------------------------------------
     font_filename = fontsdir + "/aerial.ttf";
     font = TTF_OpenFont(font_filename.c_str(), 10);
     if(font == NULL)
@@ -172,19 +147,19 @@ bool Frame::load_files()
 
 void buttonBrick_click()
 {
-    Brick *brick = new Brick(Frame::brick_sprite, BRICK);
+    Brick *brick = new Brick(BRICK);
     Brick::brickList.push_back(brick);
 }
 
 void buttonStrongBrick_click()
 {
-    Brick *brick = new Brick(Frame::brickStrong_sprite, BRICK_STRONG);
+    Brick *brick = new Brick(BRICK_STRONG);
     Brick::brickList.push_back(brick);
 }
 
 void buttonBetonBrick_click()
 {
-    Brick *brick = new Brick(Frame::brickBeton_sprite, BRICK_BETON);
+    Brick *brick = new Brick(BRICK_BETON);
     Brick::brickList.push_back(brick);
 }
 
@@ -221,16 +196,16 @@ void buttonLoad_click()
         switch(brickType)
         {
         case BRICK:
-            brick = new Brick(Frame::brick_sprite, BRICK, X, Y);
+            brick = new Brick(BRICK, X, Y);
             Brick::brickList.push_back(brick);
             //brick.clean_up();
             break;
         case BRICK_STRONG:
-            brick = new Brick(Frame::brickStrong_sprite, BRICK_STRONG, X, Y);
+            brick = new Brick(BRICK_STRONG, X, Y);
             Brick::brickList.push_back(brick);
             break;
         case BRICK_BETON:
-            brick = new Brick(Frame::brickBeton_sprite, BRICK_BETON, X, Y);
+            brick = new Brick(BRICK_BETON, X, Y);
             Brick::brickList.push_back(brick);
             break;
         }
@@ -285,8 +260,7 @@ bool Frame::main_loop()
         }
         glClear(GL_COLOR_BUFFER_BIT);
         textureList[BG_TEX]->show(0,0);
-//        apply_surface(0,0,bg,screen);
-//        SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format,255, 255, 255));
+
         buttonBrick->show();
         buttonStrongBrick->show();
         buttonBetonBrick->show();
@@ -314,12 +288,7 @@ bool Frame::main_loop()
 void Frame::exit()
 {
     SDL_FreeSurface(screen);
-    SDL_FreeSurface(sprite_btnSave);
-    SDL_FreeSurface(sprite_btnLoad);
-    SDL_FreeSurface(brick_sprite);
-    SDL_FreeSurface(brickStrong_sprite);
-    SDL_FreeSurface(brickBeton_sprite);
-    SDL_FreeSurface(bg);
+
     TTF_CloseFont(font);
 
     for(unsigned int i = 0; i < Brick::brickList.size(); i++)

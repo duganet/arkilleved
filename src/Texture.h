@@ -5,13 +5,14 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include "Constants.h"
+#include <string>
 
 class Texture
 {
 public:
-    Texture();
     ~Texture();
-    void load_from_surface(SDL_Surface* source);
+    bool load_from_file(std::string filename);
+    bool load_from_surface(SDL_Surface* source);
     void show(int x, int y);
     GLuint get_texture(){return texture;}
     int get_width(){return surface_w;}

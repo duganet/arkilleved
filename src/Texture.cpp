@@ -6,26 +6,106 @@
 
 std::stringstream st;
 
-Texture::Texture()
-{
-}
 
 Texture::~Texture()
 {
     glDeleteTextures( 1, &texture);
 }
 
-void Texture::load_from_surface(SDL_Surface *surface)
+bool Texture::load_from_file(std::string filename)
 {
-//    SDL_PixelFormat *pf;
-//    pf = surface->format;
-//    if(
-//    pf->BitsPerPixel = 24;
-//    pf->BytesPerPixel = 4;
-    if(surface->format->BitsPerPixel == 32)
+    int mode;
+    int width = 0;
+    int height = 0;
+
+    SDL_Surface *surface;
+    surface = IMG_Load(filename.c_str());
+    if(surface == NULL)
     {
-        surface->format->BitsPerPixel = 24;
-        surface->format->BytesPerPixel = 4;
+        log("ERROR: " + filename + "not load");
+        return false;
+    }
+
+    if(surface->format->BytesPerPixel == 4) // 32bit
+    {
+        mode = GL_RGBA;
+    }
+    else if(surface->format->BytesPerPixel == 3) //24bit
+    {
+        mode = GL_RGB;
+    }
+    else
+    {
+        log("ERROR: " + filename + " not 32 or 24 bit image");
+        SDL_FreeSurface(surface);
+        return false;
+    }
+    w = surface->w;
+    h = surface->h;
+
+    //Check that the image's width is a power of 2
+    while ( ((surface->w+width) & (surface->w+width - 1)) != 0 )
+    {
+        width++;
+    }
+
+    // Also check if the height is a power of 2
+    while ( (surface->h+height & (surface->h+height - 1)) != 0 )
+    {
+        height++;
+    }
+
+    SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, surface->format->BitsPerPixel,
+                                                surface->format->Rmask,surface->format->Gmask,surface->format->Bmask,surface->format->Amask);
+    SDL_Rect offset;
+    offset.x = 0;
+    offset.y = 0;
+
+    SDL_BlitSurface(surface, NULL, temp, &offset);
+
+    // Have OpenGL generate a texture object handle for us
+    glGenTextures( 1, &texture );
+
+    // Bind the texture object
+    glBindTexture( GL_TEXTURE_2D, texture );
+
+    // Set the texture's stretching properties
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
+    // Edit the texture object's image data using the information SDL_Surface gives us
+    glTexImage2D( GL_TEXTURE_2D, 0, mode, temp->w, temp->h, 0,
+                      mode, GL_UNSIGNED_BYTE, temp->pixels );
+
+    wdt = (float)surface->w/((float)surface->w+(float)width);
+    hgt = (float)surface->h/((float)surface->h+(float)height);
+
+    SDL_FreeSurface(temp);
+    SDL_FreeSurface(surface);
+    return true;
+}
+
+bool Texture::load_from_surface(SDL_Surface *surface)
+{
+    int mode;
+    if(surface == NULL)
+    {
+        log("ERROR: surface is NULL");
+        return false;
+    }
+    if(surface->format->BytesPerPixel == 4) // 32bit
+    {
+        mode = GL_RGBA;
+    }
+    else if(surface->format->BytesPerPixel == 3) //24bit
+    {
+        mode = GL_RGB;
+    }
+    else
+    {
+        log("ERROR: surface not 32 or 24 bit image");
+        SDL_FreeSurface(surface);
+        return false;
     }
 
     int width = 0;
@@ -35,45 +115,46 @@ void Texture::load_from_surface(SDL_Surface *surface)
 
 
 
-     //Check that the image's width is a power of 2
-        while ( ((surface->w+width) & (surface->w+width - 1)) != 0 )
-        {
-            width++;
-        }
+    //Check that the image's width is a power of 2
+    while ( ((surface->w+width) & (surface->w+width - 1)) != 0 )
+    {
+        width++;
+    }
 
-        // Also check if the height is a power of 2
-        while ( (surface->h+height & (surface->h+height - 1)) != 0 )
-        {
-            height++;
-        }
+    // Also check if the height is a power of 2
+    while ( (surface->h+height & (surface->h+height - 1)) != 0 )
+    {
+        height++;
+    }
 
-        SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, surface->format->BitsPerPixel,
-                                                surface->format->Rmask,surface->format->Gmask,surface->format->Bmask,1);
-        SDL_Rect offset;
-        offset.x = 0;
-        offset.y = 0;
-        //temp = surface;
-        SDL_BlitSurface(surface, NULL, temp, &offset);
+    SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, surface->format->BitsPerPixel,
+                                                surface->format->Rmask,surface->format->Gmask,surface->format->Bmask,surface->format->Amask);
+    SDL_Rect offset;
+    offset.x = 0;
+    offset.y = 0;
 
-        // Have OpenGL generate a texture object handle for us
-        glGenTextures( 1, &texture );
+    SDL_BlitSurface(surface, NULL, temp, &offset);
 
-        // Bind the texture object
-        glBindTexture( GL_TEXTURE_2D, texture );
+    // Have OpenGL generate a texture object handle for us
+    glGenTextures( 1, &texture );
 
-        // Set the texture's stretching properties
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    // Bind the texture object
+    glBindTexture( GL_TEXTURE_2D, texture );
 
-        // Edit the texture object's image data using the information SDL_Surface gives us
-        glTexImage2D( GL_TEXTURE_2D, 0, 3, temp->w, temp->h, 0,
-                      GL_RGB, GL_UNSIGNED_BYTE, temp->pixels );
+    // Set the texture's stretching properties
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
+    // Edit the texture object's image data using the information SDL_Surface gives us
+    glTexImage2D( GL_TEXTURE_2D, 0, mode, temp->w, temp->h, 0,
+                      mode, GL_UNSIGNED_BYTE, temp->pixels );
 
     wdt = (float)surface->w/((float)surface->w+(float)width);
     hgt = (float)surface->h/((float)surface->h+(float)height);
 
     SDL_FreeSurface(temp);
-    //SDL_FreeSurface(surface);
+    SDL_FreeSurface(surface);
+    return true;
 }
 
 void Texture::show(int x, int y)

@@ -16,8 +16,8 @@ class Brick
 {
 public:
     static std::vector<Brick*> brickList;
-    Brick(SDL_Surface* sprite, int type);
-    Brick(SDL_Surface* sprite, int type, int x, int y);
+    Brick(int type);
+    Brick(int type, int x, int y);
     void set_up(int x, int y);
     ~Brick();
     void handle_events(SDL_Event &event);
