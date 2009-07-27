@@ -5,6 +5,7 @@ noinst_HEADERS = \
 	Constants.h \
 	Frame.h \
 	SDLUtils.h \
+	Texture.h \
 	Timer.h
 arkilloid_leveledit_SOURCES = \
 	main.cpp \
@@ -12,4 +13,5 @@ arkilloid_leveledit_SOURCES = \
 	Button.cpp \
 	Frame.cpp \
 	SDLUtils.cpp \
+	Texture.cpp \
 	Timer.cpp
