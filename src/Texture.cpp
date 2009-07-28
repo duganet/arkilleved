@@ -198,8 +198,6 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
 
     // Bind the texture object
     glBindTexture( GL_TEXTURE_2D, texture );
-    glEnable( GL_BLEND );
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     // Set the texture's stretching properties
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );

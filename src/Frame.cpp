@@ -1,19 +1,19 @@
 /*
  *      Frame.cpp
- *      
+ *
  *      Copyright 2009 PlugHead Games <plughead@mail.ru>
  *      Copyright 2009 DUGA Project <dev@duganet.ru>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -32,7 +32,7 @@ Frame::Frame()
 {
     screen = NULL;
     quit = false;
-    font = NULL;
+    //font = NULL;
 }
 
 Frame::~Frame()
@@ -45,7 +45,9 @@ bool Frame::initGL()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
     glEnable( GL_TEXTURE_2D );
-    glClearColor(1,1,1,1);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0,0,0,1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0,SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1);
@@ -74,12 +76,6 @@ bool Frame::init()
         return false;
     }
     SDL_WM_SetCaption("Arkilloid Level Editor", NULL);
-
-    if(TTF_Init() == -1)
-    {
-        log("ERROR: TTF not init");
-        return false;
-    }
 
     if(initGL() == false)
     {
@@ -156,12 +152,12 @@ bool Frame::load_files()
     textureList.push_back(bg_tex);
     //-----------------------------------------------------------
     font_filename = fontsdir + "/aerial.ttf";
-    font = TTF_OpenFont(font_filename.c_str(), 10);
-    if(font == NULL)
-    {
-        log("ERROR: " + fontsdir + "/aerial.ttf not found");
-        return false;
-    }
+    font.open(font_filename.c_str(), 10);
+//    if(font == NULL)
+//    {
+//        log("ERROR: " + fontsdir + "/aerial.ttf not found");
+//        return false;
+//    }
     return true;
 }
 
@@ -291,7 +287,7 @@ bool Frame::main_loop()
         {
             for(unsigned int i = 0; i < Brick::brickList.size();i++)
             {
-                Brick::brickList[i]->show(screen, font);
+                Brick::brickList[i]->show(screen, &font);
             }
         }
 
@@ -309,9 +305,7 @@ bool Frame::main_loop()
 void Frame::exit()
 {
     SDL_FreeSurface(screen);
-
-    TTF_CloseFont(font);
-
+    font.release();
     for(unsigned int i = 0; i < Brick::brickList.size(); i++)
     {
        Brick::brickList.erase(Brick::brickList.begin(), Brick::brickList.end());
@@ -321,6 +315,5 @@ void Frame::exit()
     {
        textureList.erase(textureList.begin(), textureList.end());
     }
-    TTF_Quit();
     SDL_Quit();
 }

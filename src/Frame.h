@@ -30,6 +30,7 @@
 #include "Timer.h"
 #include "Texture.h"
 #include <vector>
+#include "GLFT_Font.h"
 
 class Frame
 {
@@ -45,7 +46,7 @@ private:
     SDL_Surface *screen;
 
     SDL_Event event;
-    TTF_Font *font;
+    GLFT_Font font;
     bool quit;
 };
 

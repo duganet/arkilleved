@@ -25,6 +25,7 @@
 #include "SDLUtils.h"
 #include "Texture.h"
 #include <vector>
+#include "GLFT_Font.h"
 
 enum BrickType
 {
@@ -42,7 +43,7 @@ public:
     void set_up(int x, int y);
     ~Brick();
     void handle_events(SDL_Event &event);
-    void show(SDL_Surface *screen, TTF_Font *font);
+    void show(SDL_Surface *screen, GLFT_Font *font);
     SDL_Rect get_rect();
     int get_type();
     int get_id();
