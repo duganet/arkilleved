@@ -1,0 +1,57 @@
+Arkilloid Level Editor Compilation Guide.
+
+Linux:
+
+	UPDATE TO LATEST DEVELOPMENT VERSION
+		First you may want to update your current copy with the recent version in repository.
+		You need a nice tool called "git" for it
+		Just type:
+		
+			$ git pull
+		
+		and it should update everything in the tree.
+		If you don't have initialized git repository you can initialize it now:
+		
+			$ git clone git://git.duganet.ru:arkilloid.git
+		
+		You're now ready to compile! :)
+	
+	COMPILING
+		First of all chdir to the Level Editor root directory:
+		
+			$ cd ./arkilloid/tools/arkilloid-leveledit/
+		
+		Then you need to generate a configure script.
+		You'd probably prefer to use provided script to do this:
+		
+			$ ./autogen.sh
+		
+		Then you need to configure environment variables and makefiles for your system.
+		Run:
+		
+			$ ./configure
+		
+		Now it's time to compile and get the binary :)
+		
+			$ make
+		
+		Then you may wan't to install binaries and other resource files to your prefix (see below)
+		
+			$ make install
+		
+		By default this command will copy all needed files to /usr/local directory.
+		You may need root privilegies to do this action. If you have sudo on your system you can use it to run install command:
+		
+			$ sudo make install
+		
+		If you need other dir please run
+		
+			$ ./configure --prefix=/path/to/prefix
+		
+		where /path/to/prefix is path where you want to store application files.
+		
+		That's all! Now you may run the program typing:
+		
+			$ arkilloid-leveledit
+		
+		Good Luck!
