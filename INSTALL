@@ -35,12 +35,12 @@ Linux:
 		
 			$ make
 		
-		Then you may wan't to install binaries and other resource files to your prefix (see below)
+		Then you may want to install binaries and other resource files to your prefix (see below)
 		
 			$ make install
 		
 		By default this command will copy all needed files to /usr/local directory.
-		You may need root privilegies to do this action. If you have sudo on your system you can use it to run install command:
+		You may need root privilegies to perform this action. If you have sudo on your system you can use it to run install command:
 		
 			$ sudo make install
 		
@@ -50,7 +50,7 @@ Linux:
 		
 		where /path/to/prefix is path where you want to store application files.
 		
-		That's all! Now you may run the program typing:
+		That's all! Now you can run the program typing:
 		
 			$ arkilloid-leveledit
 		
