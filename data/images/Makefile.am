@@ -1,6 +1,5 @@
 imagedir=${pkgdatadir}/images
 dist_image_DATA = \
-	bg.bmp \
 	bg.png \
 	brick_beton.png \
 	brick.png \

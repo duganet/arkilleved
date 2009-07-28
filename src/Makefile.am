@@ -1,3 +1,6 @@
+AM_CPPFLAGS = \
+	`freetype-config --cflags`
+
 bin_PROGRAMS = arkilloid-leveledit
 noinst_HEADERS = \
 	Brick.h \
@@ -14,4 +17,5 @@ arkilloid_leveledit_SOURCES = \
 	Frame.cpp \
 	SDLUtils.cpp \
 	Texture.cpp \
-	Timer.cpp
+	Timer.cpp \
+	../extern/GLFT_Font/GLFT_Font.cpp

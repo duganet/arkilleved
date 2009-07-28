@@ -8,6 +8,7 @@ AM_CONFIG_HEADER([src/config.h])
 AC_CHECK_LIB([SDL], [SDL_Init])
 AC_CHECK_LIB([SDL_image], [IMG_LoadPNG_RW])
 AC_CHECK_LIB([SDL_ttf], [TTF_Init])
+AC_CHECK_LIB([freetype], [FT_Init_FreeType])
 
 ##PDATADIR="${PREFIX}/share/${PACKAGE}"
 ##AC_SUBST(PDATADIR)
