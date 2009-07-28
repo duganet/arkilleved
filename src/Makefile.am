@@ -1,3 +1,5 @@
+AM_CFLAGS = -I../extern/GLFT_Font
+
 bin_PROGRAMS = arkilloid-leveledit
 noinst_HEADERS = \
 	Brick.h \
