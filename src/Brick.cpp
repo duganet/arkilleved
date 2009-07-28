@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include <sstream>
 
+
 std::vector<Brick*> Brick::brickList;
 extern std::vector<Texture*> textureList;
 
@@ -102,31 +103,21 @@ void Brick::handle_events(SDL_Event &event)
     }
 }
 
-void Brick::show(SDL_Surface *screen, TTF_Font *font)
+void Brick::show(SDL_Surface *screen, GLFT_Font *font)
 {
-//    SDL_Color color = {1,0,1};
-//    SDL_Color color_bg = {1,0,0};
-//    for(unsigned int i = 0; i < Brick::brickList.size(); i++)
-//        {
-//            if(Brick::brickList[i]->get_drag() == true)
-//            {
-//                Texture *coord_tex = new Texture();
-//                std::stringstream ss;
-//                ss << "x: "
-//                   << Brick::brickList[i]->get_rect().x
-//                   << " y: "
-//                   << Brick::brickList[i]->get_rect().y;
-//                coord = TTF_RenderText_Shaded(font, ss.str().c_str(), color, color_bg);
-//                coord_tex->load_from_surface(coord);
-//                coord_tex->show(300,10);
-//                SDL_FreeSurface(coord);
-//                delete coord_tex;
-//                apply_surface(300,10,coord,screen);
-//            }
-//        }
-
-    //apply_surface(box.x, box.y, sprite, screen);
-    //texture.show(box.x, box.y);
+    for(unsigned int i = 0; i < Brick::brickList.size(); i++)
+    {
+            if(Brick::brickList[i]->get_drag() == true)
+            {
+                glColor3f(0,0,0);
+                font->beginDraw(300,10) << "x: "
+                                        << Brick::brickList[i]->get_rect().x
+                                        << " y: "
+                                        << Brick::brickList[i]->get_rect().y
+                                        << font->endDraw();
+                glColor3f(1,1,1);
+            }
+    }
     switch(type)
     {
     case BRICK:

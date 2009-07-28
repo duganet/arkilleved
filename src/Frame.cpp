@@ -11,7 +11,7 @@ Frame::Frame()
 {
     screen = NULL;
     quit = false;
-    font = NULL;
+    //font = NULL;
 }
 
 Frame::~Frame()
@@ -24,7 +24,9 @@ bool Frame::initGL()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
     glEnable( GL_TEXTURE_2D );
-    glClearColor(1,1,1,1);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0,0,0,1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0,SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1);
@@ -53,12 +55,6 @@ bool Frame::init()
         return false;
     }
     SDL_WM_SetCaption("Arkilloid Level Editor", NULL);
-
-    if(TTF_Init() == -1)
-    {
-        log("ERROR: TTF not init");
-        return false;
-    }
 
     if(initGL() == false)
     {
@@ -91,7 +87,7 @@ bool Frame::load_files()
     //-----------------------------------------------------------
     img_filename = imagedir + "/brick_strong.png";
     Texture *brickStrong_tex = new Texture;
-    if(brickStrong_tex->load_from_file(img_filename) == false)
+    if(brickStrong_tex->load_from_file(img_filename,255,0,255) == false)
     {
         log("ERROR: " + img_filename + " not found");
         return false;
@@ -135,12 +131,12 @@ bool Frame::load_files()
     textureList.push_back(bg_tex);
     //-----------------------------------------------------------
     font_filename = fontsdir + "/aerial.ttf";
-    font = TTF_OpenFont(font_filename.c_str(), 10);
-    if(font == NULL)
-    {
-        log("ERROR: " + fontsdir + "/aerial.ttf not found");
-        return false;
-    }
+    font.open(font_filename.c_str(), 10);
+//    if(font == NULL)
+//    {
+//        log("ERROR: " + fontsdir + "/aerial.ttf not found");
+//        return false;
+//    }
     return true;
 }
 
@@ -270,7 +266,7 @@ bool Frame::main_loop()
         {
             for(unsigned int i = 0; i < Brick::brickList.size();i++)
             {
-                Brick::brickList[i]->show(screen, font);
+                Brick::brickList[i]->show(screen, &font);
             }
         }
 
@@ -288,9 +284,7 @@ bool Frame::main_loop()
 void Frame::exit()
 {
     SDL_FreeSurface(screen);
-
-    TTF_CloseFont(font);
-
+    font.release();
     for(unsigned int i = 0; i < Brick::brickList.size(); i++)
     {
        Brick::brickList.erase(Brick::brickList.begin(), Brick::brickList.end());
@@ -300,6 +294,5 @@ void Frame::exit()
     {
        textureList.erase(textureList.begin(), textureList.end());
     }
-    TTF_Quit();
     SDL_Quit();
 }
