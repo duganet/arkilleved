@@ -1,19 +1,19 @@
 /*
  *      Texture.cpp
- *      
+ *
  *      Copyright 2009 PlugHead Games <plughead@mail.ru>
  *      Copyright 2009 DUGA Project <dev@duganet.ru>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -310,6 +310,61 @@ void Texture::show(int x, int y)
         //Top-right vertex (corner)
         glTexCoord2f( 0, hgt );
         glVertex3f( 0, h, 0 );
+
+        //glVertex3f( 50, 50, 0 );
+        glEnd();
+
+        glLoadIdentity();
+        glPopMatrix();
+}
+
+void Texture::show(int x, int y, SDL_Rect clip)
+{
+    SDL_Rect cl;
+//    cl.x = clip.x/w;
+//    if(cl.x == 1)
+//        cl.x = 0;
+//    cl.y = clip.y/h;
+//    if(cl.x == 1)
+//        cl.x = 0;
+//    cl.w = clip.x/w;
+//    cl.h = clip.h/h;
+
+    float cl_x = (float)clip.x/w*wdt;
+    if(cl_x == 1.0)
+        cl_x = 0;
+    float cl_y = (float)clip.y/h*hgt;
+    if(cl_y == 1.0)
+        cl_y = 0;
+    float cl_w = (float)clip.w/w*wdt;
+    float cl_h = (float)clip.h/h*hgt;
+
+    //st << cl_x << " " << cl_y << " " << cl_w << " " << cl_h << std::endl;
+
+    //log(st.str());
+
+    glPushMatrix();
+    glTranslatef(x,y,0);
+    //glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glBegin(GL_QUADS);
+
+        //glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+        glTexCoord2f( cl_x, cl_y );
+        glVertex3f( 0, 0, 0.0f );
+
+        //Bottom-left vertex (corner)
+        glTexCoord2f( cl_w, cl_y );
+        glVertex3f( clip.w, 0, 0 );
+
+        //Bottom-right vertex (corner)
+        glTexCoord2f( cl_w, cl_h );
+        glVertex3f( clip.w, h/2, 0 );
+
+        //Top-right vertex (corner)
+        glTexCoord2f( cl_x, cl_h );
+        glVertex3f( 0, h/2, 0 );
 
         //glVertex3f( 50, 50, 0 );
         glEnd();

@@ -248,8 +248,8 @@ bool Frame::main_loop()
     Button *buttonBrick = new Button(106,6, textureList[BRICK_TEX]);
     Button *buttonStrongBrick = new Button(140,6, textureList[BRICK_STRONG_TEX]);
     Button *buttonBetonBrick = new Button(174,6, textureList[BRICK_BETON_TEX]);
-    Button *buttonSave = new Button(40,6,textureList[BTN_SAVE_TEX]);
-    Button *buttonLoad = new Button(6,6,textureList[BTN_LOAD_TEX]);
+    Button *buttonSave = new Button(40,6,textureList[BTN_SAVE_TEX],2);
+    Button *buttonLoad = new Button(6,6,textureList[BTN_LOAD_TEX],2);
     Timer fps;
     log("loop start");
     while(quit == false)
