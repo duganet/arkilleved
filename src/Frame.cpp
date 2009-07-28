@@ -1,4 +1,25 @@
-//Frame.cpp
+/*
+ *      Frame.cpp
+ *      
+ *      Copyright 2009 PlugHead Games <plughead@mail.ru>
+ *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *      MA 02110-1301, USA.
+ */
+
 //#include "config.h"
 #include "Frame.h"
 #include <fstream>
@@ -224,11 +245,11 @@ bool Frame::main_loop()
         log("ERROR: files not load");
         return false;
     }
-    Button *buttonBrick = new Button(100,0, textureList[BRICK_TEX]);
-    Button *buttonStrongBrick = new Button(134,0, textureList[BRICK_STRONG_TEX]);
-    Button *buttonBetonBrick = new Button(168,0, textureList[BRICK_BETON_TEX]);
-    Button *buttonSave = new Button(34,0,textureList[BTN_SAVE_TEX]);
-    Button *buttonLoad = new Button(0,0,textureList[BTN_LOAD_TEX]);
+    Button *buttonBrick = new Button(106,6, textureList[BRICK_TEX]);
+    Button *buttonStrongBrick = new Button(140,6, textureList[BRICK_STRONG_TEX]);
+    Button *buttonBetonBrick = new Button(174,6, textureList[BRICK_BETON_TEX]);
+    Button *buttonSave = new Button(40,6,textureList[BTN_SAVE_TEX]);
+    Button *buttonLoad = new Button(6,6,textureList[BTN_LOAD_TEX]);
     Timer fps;
     log("loop start");
     while(quit == false)
