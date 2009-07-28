@@ -60,6 +60,8 @@ Button::Button(int x, int y, Texture* texture, int num_clips)
     this->texture = new Texture();
     this->texture = texture;
     this->num_clips = num_clips;
+    if(num_clips > 2)
+        num_clips = 2;
 
     clips[CLIP_MOUSEOVER].x = 0;
     clips[CLIP_MOUSEOVER].y = 0;

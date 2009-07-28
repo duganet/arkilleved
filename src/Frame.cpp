@@ -197,6 +197,14 @@ void buttonSave_click()
 
 void buttonLoad_click()
 {
+    if(Brick::brickList.size() > 0)
+    {
+        for(unsigned int i = 0; i < Brick::brickList.size(); i++)
+        {
+           Brick::brickList.erase(Brick::brickList.begin(), Brick::brickList.end());
+        }
+    }
+
     FILE *FileHandle = fopen("level.map", "r");
 
     int brickCount = 0;
