@@ -1,1 +1,1 @@
-SUBDIRS = extern src data
+SUBDIRS = src data

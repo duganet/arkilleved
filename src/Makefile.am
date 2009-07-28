@@ -1,4 +1,5 @@
-AM_CFLAGS = -I../extern/GLFT_Font
+AM_CPPFLAGS = \
+	`freetype-config --cflags`
 
 bin_PROGRAMS = arkilloid-leveledit
 noinst_HEADERS = \
@@ -16,4 +17,5 @@ arkilloid_leveledit_SOURCES = \
 	Frame.cpp \
 	SDLUtils.cpp \
 	Texture.cpp \
-	Timer.cpp
+	Timer.cpp \
+	../extern/GLFT_Font/GLFT_Font.cpp

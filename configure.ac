@@ -14,4 +14,4 @@ AC_CHECK_LIB([freetype], [FT_Init_FreeType])
 ##AC_SUBST(PDATADIR)
 ##AC_DEFINE_UNQUOTED([PDATADIR], [${PDATADIR}], [Package data dir])
 
-AC_OUTPUT([Makefile extern/Makefile extern/GLFT_Font/Makefile src/Makefile data/Makefile data/fonts/Makefile data/images/Makefile])
+AC_OUTPUT([Makefile src/Makefile data/Makefile data/fonts/Makefile data/images/Makefile])
