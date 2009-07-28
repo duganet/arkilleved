@@ -76,7 +76,8 @@ Brick::~Brick()
 
 void Brick::handle_events(SDL_Event &event)
 {
-    int mouse_x, mouse_y;
+    int mouse_x = 0;
+    int mouse_y = 0;
 
     if(event.type == SDL_MOUSEMOTION)
     {
