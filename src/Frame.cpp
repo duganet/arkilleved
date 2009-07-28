@@ -228,11 +228,11 @@ bool Frame::main_loop()
         log("ERROR: files not load");
         return false;
     }
-    Button *buttonBrick = new Button(100,0, textureList[BRICK_TEX]);
-    Button *buttonStrongBrick = new Button(134,0, textureList[BRICK_STRONG_TEX]);
-    Button *buttonBetonBrick = new Button(168,0, textureList[BRICK_BETON_TEX]);
-    Button *buttonSave = new Button(34,0,textureList[BTN_SAVE_TEX]);
-    Button *buttonLoad = new Button(0,0,textureList[BTN_LOAD_TEX]);
+    Button *buttonBrick = new Button(106,6, textureList[BRICK_TEX]);
+    Button *buttonStrongBrick = new Button(140,6, textureList[BRICK_STRONG_TEX]);
+    Button *buttonBetonBrick = new Button(174,6, textureList[BRICK_BETON_TEX]);
+    Button *buttonSave = new Button(40,6,textureList[BTN_SAVE_TEX]);
+    Button *buttonLoad = new Button(6,6,textureList[BTN_LOAD_TEX]);
     Timer fps;
     log("loop start");
     while(quit == false)
