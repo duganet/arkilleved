@@ -3,7 +3,6 @@ AC_INIT([Arkilloid Level Editor],[0.0.1],[http://arkilloid.duganet.ru/],[arkillo
 AM_INIT_AUTOMAKE([arkilloid-leveledit],[0.0.1])
 AC_PROG_CXX
 AC_PROG_MAKE_SET
-AM_CPPFLAGS=`freetype-config --cflags`
 ##AM_CONFIG_HEADER([src/config.h])
 
 AC_CHECK_LIB([SDL], [SDL_Init])
