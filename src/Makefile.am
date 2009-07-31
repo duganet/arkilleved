@@ -10,6 +10,7 @@ noinst_HEADERS = \
 	SDLUtils.h \
 	Texture.h \
 	Timer.h
+	../extern/GLFT_Font/GLFT_Font.h
 arkilloid_leveledit_SOURCES = \
 	main.cpp \
 	Brick.cpp \
