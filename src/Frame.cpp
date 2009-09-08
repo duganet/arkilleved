@@ -136,9 +136,9 @@ bool Frame::load_files()
     //-----------------------------------------------------------
     filename = path_construct("images", "bg.png");
     Texture *bg_tex = new Texture;
-    if(bg_tex->load_from_file(img_filename) == false)
+    if(bg_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bg_tex);
