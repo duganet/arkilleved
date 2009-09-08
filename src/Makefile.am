@@ -1,5 +1,6 @@
 AM_CPPFLAGS = \
-	`freetype-config --cflags`
+	`freetype-config --cflags` \
+	-DDATADIR='"${datadir}"'
 
 bin_PROGRAMS = arkilloid-leveledit
 noinst_HEADERS = \
