@@ -1,0 +1,5 @@
+2009-09-08  Maxim Kachur  <mcdebugger@duganet.ru>
+
+ * Work on file paths. Added path_construct() function (like in arkilloid) (file.cpp, file.h), edited Frame.cpp for use with this function.
+
+

@@ -22,6 +22,7 @@
 
 //#include "config.h"
 #include "Frame.h"
+#include "file.h"
 #include <fstream>
 #include <sstream>
 
@@ -86,63 +87,54 @@ bool Frame::init()
 
 bool Frame::load_files()
 {
-    std::string fontsdir, imagedir, font_filename, img_filename;
-    #ifdef WIN32
-    imagedir = "images";
-    fontsdir = "fonts";
-    #else
-    /*imagedir = "../share/" + PACKAGE + "/images";
-    fontsdir = "../share/" + PACKAGE + "/fonts";*/
-    imagedir = "../share/arkilloid-leveledit/images";
-    fontsdir = "../share/arkilloid-leveledit/fonts";
-    #endif
+    std::string filename;
     //-----------------------------------------------------------
-    img_filename = imagedir + "/brick.png";
+    filename = path_construct("images", "brick.png");
     Texture *brick_tex = new Texture;
-    if(brick_tex->load_from_file(img_filename) == false)
+    if(brick_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brick_tex);
     //-----------------------------------------------------------
-    img_filename = imagedir + "/brick_strong.png";
+    filename = path_construct("images", "brick_strong.png");
     Texture *brickStrong_tex = new Texture;
-    if(brickStrong_tex->load_from_file(img_filename) == false)
+    if(brickStrong_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brickStrong_tex);
     //-----------------------------------------------------------
-    img_filename = imagedir + "/brick_beton.png";
+    filename = path_construct("images", "brick_beton.png");
     Texture *brickBeton_tex = new Texture;
-    if(brickBeton_tex->load_from_file(img_filename) == false)
+    if(brickBeton_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brickBeton_tex);
     //-----------------------------------------------------------
-    img_filename = imagedir + "/button_save.png";
+    filename = path_construct ("images", "button_save.png");
     Texture *btnSave_tex = new Texture;
-    if(btnSave_tex->load_from_file(img_filename) == false)
+    if(btnSave_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(btnSave_tex);
     //-----------------------------------------------------------
-    img_filename = imagedir + "/button_open.png";
+    filename = path_construct("images", "button_open.png");
     Texture *btnLoad_tex = new Texture;
-    if(btnLoad_tex->load_from_file(img_filename) == false)
+    if(btnLoad_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(btnLoad_tex);
     //-----------------------------------------------------------
-    img_filename = imagedir + "/bg.png";
+    filename = path_construct("images", "bg.png");
     Texture *bg_tex = new Texture;
     if(bg_tex->load_from_file(img_filename) == false)
     {
@@ -151,8 +143,8 @@ bool Frame::load_files()
     }
     textureList.push_back(bg_tex);
     //-----------------------------------------------------------
-    font_filename = fontsdir + "/aerial.ttf";
-    font.open(font_filename.c_str(), 10);
+    filename = path_construct("fonts", "aerial.ttf");
+    font.open(filename.c_str(), 10);
 //    if(font == NULL)
 //    {
 //        log("ERROR: " + fontsdir + "/aerial.ttf not found");
