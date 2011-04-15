@@ -1,50 +1,37 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT (arkilloid-leveledit)
+cmake_minimum_required(VERSION 2.6)
+project(arkilleved)
 
-SET (HEADERS
-	src/Brick.h
-	src/Button.h
-	src/CMakeCache.txt
-	src/Constants.h
-	src/Frame.h
-	src/SDLUtils.h
-	src/Timer.h
-	)
+find_package(OpenGL REQUIRED)
+find_package(SDL REQUIRED)
+find_package(SDL_image REQUIRED)
+find_package(SDL_ttf REQUIRED)
+find_package(Freetype REQUIRED)
 
-SET (SOURCES
-	src/main.cpp
-	src/Brick.cpp
-	src/Button.cpp
-	src/Frame.cpp
-	src/SDLUtils.cpp
-	src/Timer.cpp
-	)
+set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
+set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
 
-SET (BINARY_NAME
-	arkilloid-leveledit
-	)
+set(ARKILLEVED_INCLUDE_DIR src)
+set(GLFTFONT_INCLUDE_DIR extern/glftfont)
+set(LIBIO_INCLUDE_DIR src/io)
 
-SET (RES_IMAGES
-	data/images/bg.bmp
-	data/images/brick.png
-	data/images/button_open.png
-	data/images/brick_beton.png
-	data/images/brick_strong.png
-	data/images/button_save.png
-	)
+add_definitions(-DDATADIR="${DATADIR}")
+add_definitions(-DPACKAGE="${PROJECT_NAME}")
+if(DEBUG)
+	add_definitions(-DDEBUG)
+	set(CMAKE_BUILD_TYPE Debug)
+endif()
 
-SET (RELEASE_DIR
-	arkilloid-leveledit
-	)
+include_directories(
+	${OPENGL_INCLUDE_DIR}
+	${SDL_INCLUDE_DIR}
+	${SDLIMAGE_INCLUDE_DIR}
+	${SDLTTF_INCLUDE_DIR}
+	${FREETYPE_INCLUDE_DIRS}
+	${GLFTFONT_INCLUDE_DIR}
+	${ARKILLEVED_INCLUDE_DIR}
+	${LIBIO_INCLUDE_DIR}
+)
 
-ADD_EXECUTABLE (${BINARY_NAME} ${SOURCES})
-
-TARGET_LINK_LIBRARIES (${BINARY_NAME}
-	SDL
-	SDL_image
-	SDL_mixer
-	SDL_ttf
-	)
-
-INSTALL (TARGETS ${BINARY_NAME} DESTINATION "bin")
-INSTALL (FILES "${RES_IMAGES}" DESTINATION "share/images")
+add_subdirectory(extern)
+add_subdirectory(src)
+add_subdirectory(data)

@@ -1,0 +1,3 @@
+[submodule "extern/glftfont"]
+	path = extern/glftfont
+	url = git://github.com/jamesturk/glftfont.git

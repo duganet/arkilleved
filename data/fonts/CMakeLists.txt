@@ -1,0 +1,5 @@
+set(
+	DATA_FONTS_FILES
+	aerial.ttf
+)
+install(FILES ${DATA_FONTS_FILES} DESTINATION ${DATA_FONTS_DIR})

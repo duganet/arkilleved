@@ -1,0 +1,8 @@
+build/
+CMakeFiles/
+cmake_install.cmake
+cmake_uninstall.cmake
+CMakeCache.txt
+Makefile
+*.a
+src/arkilleved

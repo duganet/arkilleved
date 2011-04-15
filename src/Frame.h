@@ -30,7 +30,7 @@
 #include "Timer.h"
 #include "Texture.h"
 #include <vector>
-#include "../extern/GLFT_Font/GLFT_Font.h"
+#include <GLFT_Font.hpp>
 
 class Frame
 {
