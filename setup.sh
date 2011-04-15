@@ -2,8 +2,8 @@
 
 if [ ! -f "extern/glftfont/GLFT_Font.cpp" ]; then
 	echo -n 'Initializing and updating required git submodules... '
-	git submodule init
-	git submodule update
+	git submodule init > /dev/null 2>&1
+	git submodule update > /dev/null 2>&1
 	echo '[OK]'
 fi
 
