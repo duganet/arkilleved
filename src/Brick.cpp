@@ -31,6 +31,7 @@ Frame frame;
 
 Brick::Brick(int type)
 {
+	grid = true;
     drag = true;
     this->sprite = sprite;
     //texture.load_from_surface(sprite);
