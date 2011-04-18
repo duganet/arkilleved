@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.6)
 project(arkilleved)
 
+IF(COMMAND CMAKE_POLICY)
+	CMAKE_POLICY(SET CMP0011 NEW)
+ENDIF(COMMAND CMAKE_POLICY)
+
+
 find_package(OpenGL REQUIRED)
 find_package(SDL REQUIRED)
 find_package(SDL_image REQUIRED)

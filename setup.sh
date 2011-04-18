@@ -12,7 +12,13 @@ if [ ! -d "build" ]; then
 fi
 
 cd build
-cmake ../
+
+if [ "$1" = 'windows' ]; then
+	cmake -DCMAKE_TOOLCHAIN_FILE=~/dev/Toolchain-mingw32.cmake -DCMAKE_INSTALL_PREFIX=/home/mcdebugger/dev/mingw32-install -DSDL_INCLUDE_DIR=/home/mcdebugger/dev/i686-mingw32/include/SDL/  ..
+else
+	cmake ../
+fi
+
 make
 
 echo ''
