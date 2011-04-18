@@ -112,7 +112,7 @@ void Button::handle_events(SDL_Event &event,void(callback)(void))
     }
     if(event.type == SDL_MOUSEBUTTONDOWN)
     {
-        if(event.button.button == SDL_BUTTON_LEFT)
+        if((event.button.button == SDL_BUTTON_LEFT) || (event.button.button == SDL_BUTTON_MIDDLE))
         {
             mouse_x = event.button.x;
             mouse_y = event.button.y;
