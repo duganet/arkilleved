@@ -21,11 +21,13 @@
  */
 
 #include "Brick.h"
+#include "Frame.h"
 #include <sstream>
 
 
 std::vector<Brick*> Brick::brickList;
 extern std::vector<Texture*> textureList;
+Frame frame;
 
 Brick::Brick(int type)
 {
@@ -92,10 +94,15 @@ void Brick::handle_events(SDL_Event &event)
 			mouse_y = event.button.y;
 			if((mouse_x > box.x)&&(mouse_y > box.y)&&(mouse_x < box.x+box.w)&&(mouse_y < box.y+box.h))
             {
-				if(event.button.button == SDL_BUTTON_LEFT)
+				if(event.button.button == SDL_BUTTON_MIDDLE)
 				{
-					drag = true;
+					grid = true;
 				}
+				else
+				{
+					grid = false;
+				}
+				drag = true;
 				bcount = 0;
 			}
 			if(bcount<1)
@@ -155,8 +162,16 @@ void Brick::handle_events(SDL_Event &event)
 	}
     if(drag == true)
     {
-        box.x = mouse_x - box.w/2;
-        box.y = mouse_y - box.h/2;
+		if (grid == true)
+		{
+			box.x = frame.get_grid('x', mouse_x - box.w/2);
+			box.y = frame.get_grid('y', mouse_y - box.h/2);
+		}
+		else
+		{
+			box.x = mouse_x - box.w/2;
+			box.y = mouse_y - box.h/2;
+		}
     }
 }
 

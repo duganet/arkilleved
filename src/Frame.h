@@ -41,6 +41,7 @@ public:
     bool initGL();
     bool load_files();
     bool main_loop();
+    int get_grid(char, int);
     void exit();
 private:
     SDL_Surface *screen;

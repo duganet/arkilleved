@@ -231,6 +231,26 @@ void buttonLoad_click()
     fclose(FileHandle);
 }
 
+int Frame::get_grid(char axis, int coord)
+{
+	int grid_startx, grid_starty, grid_stepx, grid_stepy;
+	int grid_coord;
+	switch(axis)
+	{
+		case 'x':
+			grid_startx = 22;
+			grid_stepx = 29;
+			grid_coord = grid_stepx * (coord / grid_stepx - 1) + grid_startx;
+			break;
+		case 'y':
+			grid_starty = 53;
+			grid_stepy = 29;
+			grid_coord = grid_stepy * (coord / grid_stepy - 1) + grid_starty;
+			break;
+	}
+	return grid_coord;
+}
+
 bool Frame::main_loop()
 {
     log("initializing...");
