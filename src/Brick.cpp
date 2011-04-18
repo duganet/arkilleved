@@ -95,7 +95,7 @@ void Brick::handle_events(SDL_Event &event)
 			mouse_y = event.button.y;
 			if((mouse_x > box.x)&&(mouse_y > box.y)&&(mouse_x < box.x+box.w)&&(mouse_y < box.y+box.h))
             {
-				if(event.button.button == SDL_BUTTON_MIDDLE)
+				if(event.button.button == SDL_BUTTON_LEFT)
 				{
 					grid = true;
 				}
