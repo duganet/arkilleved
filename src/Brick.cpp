@@ -89,7 +89,7 @@ void Brick::handle_events(SDL_Event &event)
     }
     if(event.type == SDL_MOUSEBUTTONDOWN)
     {
-		if((event.button.button == SDL_BUTTON_LEFT) || (event.button.button == SDL_BUTTON_MIDDLE))
+		if((event.button.button == SDL_BUTTON_LEFT) || (event.button.button == SDL_BUTTON_RIGHT))
 		{
 			mouse_x = event.button.x;
 			mouse_y = event.button.y;
@@ -116,7 +116,7 @@ void Brick::handle_events(SDL_Event &event)
 				last = false;
 			}
 		}
-        if(event.button.button == SDL_BUTTON_RIGHT)
+        if(event.button.button == SDL_BUTTON_MIDDLE)
         {
             mouse_x = event.button.x;
             mouse_y = event.button.y;
