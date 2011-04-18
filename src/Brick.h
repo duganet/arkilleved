@@ -57,8 +57,8 @@ private:
     Texture texture;
     SDL_Surface *coord;
     //Texture *coord_tex;
-    int id;
-    bool drag;
+    int id, bcount;
+    bool drag, last;
     int type;
 };
 

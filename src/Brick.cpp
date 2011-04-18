@@ -86,16 +86,28 @@ void Brick::handle_events(SDL_Event &event)
     }
     if(event.type == SDL_MOUSEBUTTONDOWN)
     {
-        if(event.button.button == SDL_BUTTON_LEFT)
-        {
-            mouse_x = event.button.x;
-            mouse_y = event.button.y;
-            if((mouse_x > box.x)&&(mouse_y > box.y)&&
-                (mouse_x < box.x+box.w)&&(mouse_y < box.y+box.h))
+		if((event.button.button == SDL_BUTTON_LEFT) || (event.button.button == SDL_BUTTON_MIDDLE))
+		{
+			mouse_x = event.button.x;
+			mouse_y = event.button.y;
+			if((mouse_x > box.x)&&(mouse_y > box.y)&&(mouse_x < box.x+box.w)&&(mouse_y < box.y+box.h))
             {
-                drag = true;
-            }
-        }
+				if(event.button.button == SDL_BUTTON_LEFT)
+				{
+					drag = true;
+				}
+				bcount = 0;
+			}
+			if(bcount<1)
+			{
+				bcount++;
+				last = true;
+			}
+			else
+			{
+				last = false;
+			}
+		}
         if(event.button.button == SDL_BUTTON_RIGHT)
         {
             mouse_x = event.button.x;
@@ -118,6 +130,29 @@ void Brick::handle_events(SDL_Event &event)
     {
         drag = false;
     }
+    if(last)
+    {
+		if(event.type == SDL_KEYDOWN)
+		{
+			switch(event.key.keysym.sym)
+			{
+				case SDLK_LEFT:
+					box.x--;
+					break;
+				case SDLK_RIGHT:
+					box.x++;
+					break;
+				case SDLK_UP:
+					box.y--;
+					break;
+				case SDLK_DOWN:
+					box.y++;
+					break;
+				default:
+					break;
+			}
+		}
+	}
     if(drag == true)
     {
         box.x = mouse_x - box.w/2;
