@@ -254,6 +254,14 @@ void buttonLoad_click()
             brick = new Brick(BRICK_BETON, X, Y);
             Brick::brickList.push_back(brick);
             break;
+		case BRICK_PORTAL_A:
+			brick = new Brick(BRICK_PORTAL_A, X, Y);
+			Brick::brickList.push_back(brick);
+			break;
+		case BRICK_PORTAL_B:
+			brick = new Brick(BRICK_PORTAL_B, X, Y);
+			Brick::brickList.push_back(brick);
+			break;
         }
     }
 
