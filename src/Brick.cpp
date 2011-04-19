@@ -165,8 +165,8 @@ void Brick::handle_events(SDL_Event &event)
     {
 		if (grid == true)
 		{
-			box.x = frame.get_grid('x', mouse_x - box.w/2);
-			box.y = frame.get_grid('y', mouse_y - box.h/2);
+			box.x = frame.get_grid('x', mouse_x);
+			box.y = frame.get_grid('y', mouse_y);
 		}
 		else
 		{

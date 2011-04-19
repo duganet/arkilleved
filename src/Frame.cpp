@@ -282,7 +282,7 @@ int Frame::get_grid(char axis, int coord)
 		case 'y':
 			grid_starty = 53;
 			grid_stepy = 29;
-			grid_coord = grid_stepy * (coord / grid_stepy - 1) + grid_starty;
+			grid_coord = grid_stepy * (coord / grid_stepy - 2) + grid_starty;
 			break;
 	}
 	return grid_coord;
