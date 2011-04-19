@@ -115,6 +115,24 @@ bool Frame::load_files()
         return false;
     }
     textureList.push_back(brickBeton_tex);
+	//-----------------------------------------------------------
+	filename = path_construct("images", "brick_portal_a.png");
+	Texture *brickPortalA_tex = new Texture;
+	if(brickPortalA_tex->load_from_file(filename) == false)
+	{
+		log("ERROR: " + filename + " not found");
+		return false;
+	}
+	textureList.push_back(brickPortalA_tex);
+	//-----------------------------------------------------------
+	filename = path_construct("images", "brick_portal_b.png");
+	Texture *brickPortalB_tex = new Texture;
+	if(brickPortalB_tex->load_from_file(filename) == false)
+	{
+		log("ERROR: " + filename + " not found");
+		return false;
+	}
+	textureList.push_back(brickPortalB_tex);
     //-----------------------------------------------------------
     filename = path_construct ("images", "button_save.png");
     Texture *btnSave_tex = new Texture;
@@ -170,6 +188,17 @@ void buttonBetonBrick_click()
 {
     Brick *brick = new Brick(BRICK_BETON);
     Brick::brickList.push_back(brick);
+}
+
+void buttonBrickPortalA_click()
+{
+	Brick *brick = new Brick(BRICK_PORTAL_A);
+	Brick::brickList.push_back(brick);
+}
+void buttonBrickPortalB_click()
+{
+	Brick *brick = new Brick(BRICK_PORTAL_B);
+	Brick::brickList.push_back(brick);
 }
 
 void buttonSave_click()
@@ -265,9 +294,12 @@ bool Frame::main_loop()
         log("ERROR: files not load");
         return false;
     }
+	log("Creating buttons...");
     Button *buttonBrick = new Button(106,6, textureList[BRICK_TEX]);
     Button *buttonStrongBrick = new Button(140,6, textureList[BRICK_STRONG_TEX]);
     Button *buttonBetonBrick = new Button(174,6, textureList[BRICK_BETON_TEX]);
+    Button *buttonBrickPortalA = new Button(208,6, textureList[BRICK_PORTAL_A_TEX]);
+    Button *buttonBrickPortalB = new Button(242,6, textureList[BRICK_PORTAL_B_TEX]);
     Button *buttonSave = new Button(40,6,textureList[BTN_SAVE_TEX],2);
     Button *buttonLoad = new Button(6,6,textureList[BTN_LOAD_TEX],2);
     Timer fps;
@@ -285,6 +317,8 @@ bool Frame::main_loop()
             buttonBrick->handle_events(event, buttonBrick_click);
             buttonStrongBrick->handle_events(event, buttonStrongBrick_click);
             buttonBetonBrick->handle_events(event, buttonBetonBrick_click);
+            buttonBrickPortalA->handle_events(event, buttonBrickPortalA_click);
+            buttonBrickPortalB->handle_events(event, buttonBrickPortalB_click);
             buttonSave->handle_events(event, buttonSave_click);
             buttonLoad->handle_events(event, buttonLoad_click);
             if(Brick::brickList.size() > 0)
@@ -301,6 +335,8 @@ bool Frame::main_loop()
         buttonBrick->show();
         buttonStrongBrick->show();
         buttonBetonBrick->show();
+        buttonBrickPortalA->show();
+        buttonBrickPortalB->show();
         buttonSave->show();
         buttonLoad->show();
         if(Brick::brickList.size() > 0)

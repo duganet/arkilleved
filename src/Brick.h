@@ -31,7 +31,9 @@ enum BrickType
 {
     BRICK = 101,
     BRICK_STRONG,
-    BRICK_BETON
+    BRICK_BETON,
+    BRICK_PORTAL_A,
+    BRICK_PORTAL_B
 };
 
 class Brick

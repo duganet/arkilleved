@@ -1,8 +1,8 @@
 /*
  *      Brick.cpp
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -202,6 +202,12 @@ void Brick::show(SDL_Surface *screen, GLFT_Font *font)
     case BRICK_BETON:
         textureList[BRICK_BETON_TEX]->show(box.x, box.y);
         break;
+	case BRICK_PORTAL_A:
+		textureList[BRICK_PORTAL_A_TEX]->show(box.x, box.y);
+		break;
+	case BRICK_PORTAL_B:
+		textureList[BRICK_PORTAL_B_TEX]->show(box.x, box.y);
+		break;
     default:
         break;
     }
