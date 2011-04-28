@@ -1,8 +1,10 @@
 /*
  *      Texture.h
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
+ *
+ *      This file is part of Arkilleved.
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -31,22 +33,22 @@
 class Texture
 {
 public:
-    ~Texture();
-    bool load_from_file(std::string filename);
-    bool load_from_file(std::string filename, int r, int g, int b);
-    bool load_from_surface(SDL_Surface* source);
-    void show(int x, int y);
-    void show(int x, int y, SDL_Rect clip);
-    GLuint get_texture(){return texture;}
-    int get_width(){return surface_w;}
-    int get_height(){return surface_h;}
-    int w,h;
+	~Texture();
+	bool load_from_file(std::string filename);
+	bool load_from_file(std::string filename, int r, int g, int b);
+	bool load_from_surface(SDL_Surface* source);
+	void show(int x, int y);
+	void show(int x, int y, SDL_Rect clip);
+	GLuint get_texture(){return texture;}
+	int get_width(){return surface_w;}
+	int get_height(){return surface_h;}
+	int w,h;
 private:
-    GLuint texture;
-    GLenum eFormat;
+	GLuint texture;
+	GLenum eFormat;
 
-    int surface_w, surface_h;
-    double wdt, hgt;
+	int surface_w, surface_h;
+	double wdt, hgt;
 };
 
 

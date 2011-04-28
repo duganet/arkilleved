@@ -1,8 +1,10 @@
 /*
  *      Brick.h
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
+ *
+ *      This file is part of Arkilleved.
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -29,39 +31,39 @@
 
 enum BrickType
 {
-    BRICK = 101,
-    BRICK_STRONG,
-    BRICK_BETON,
-    BRICK_PORTAL_A,
-    BRICK_PORTAL_B
+	BRICK = 101,
+	BRICK_STRONG,
+	BRICK_BETON,
+	BRICK_PORTAL_A,
+	BRICK_PORTAL_B
 };
 
 class Brick
 {
 public:
-    static std::vector<Brick*> brickList;
-    Brick(int type);
-    Brick(int type, int x, int y);
-    void set_up(int x, int y);
-    ~Brick();
-    void handle_events(SDL_Event &event);
-    void show(SDL_Surface *screen, GLFT_Font *font);
-    SDL_Rect get_rect();
-    int get_type();
-    int get_id();
-    void set_id(int i);
-    bool get_drag()
-    {return drag;}
+	static std::vector<Brick*> brickList;
+	Brick(int type);
+	Brick(int type, int x, int y);
+	void set_up(int x, int y);
+	~Brick();
+	void handle_events(SDL_Event &event);
+	void show(SDL_Surface *screen, GLFT_Font *font);
+	SDL_Rect get_rect();
+	int get_type();
+	int get_id();
+	void set_id(int i);
+	bool get_drag()
+	{return drag;}
 private:
-    SDL_Rect box;
-    SDL_Rect prev_box;
-    SDL_Surface *sprite;
-    Texture texture;
-    SDL_Surface *coord;
-    //Texture *coord_tex;
-    int id, bcount;
-    bool drag, grid, last;
-    int type;
+	SDL_Rect box;
+	SDL_Rect prev_box;
+	SDL_Surface *sprite;
+	Texture texture;
+	SDL_Surface *coord;
+	//Texture *coord_tex;
+	int id, bcount;
+	bool drag, grid, last;
+	int type;
 };
 
 #endif

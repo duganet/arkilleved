@@ -1,8 +1,10 @@
 /*
  *      Button.h
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
+ * 
+ *      This file is part of Arkilleved.
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -28,27 +30,27 @@
 
 enum
 {
-    CLIP_MOUSEOVER,
-    CLIP_MOUSEOUT,
-    CLIP_MOUSEDOWN,
-    CLIP_MOUSEUP
+	CLIP_MOUSEOVER,
+	CLIP_MOUSEOUT,
+	CLIP_MOUSEDOWN,
+	CLIP_MOUSEUP
 };
 
 class Button
 {
 public:
-    Button(int x, int y, std::string filename);
-    Button(int x, int y, Texture* texture, int num_clips = 1);
-    ~Button();
-    void handle_events(SDL_Event &event,void(callback)(void));
-    void show();
+	Button(int x, int y, std::string filename);
+	Button(int x, int y, Texture* texture, int num_clips = 1);
+	~Button();
+	void handle_events(SDL_Event &event,void(callback)(void));
+	void show();
 private:
-    SDL_Rect box;
-    SDL_Rect clips[2];
-    SDL_Rect clip;
-    SDL_Surface *buttonSheet;
-    Texture *texture;
-    int num_clips;
+	SDL_Rect box;
+	SDL_Rect clips[2];
+	SDL_Rect clip;
+	SDL_Surface *buttonSheet;
+	Texture *texture;
+	int num_clips;
 };
 
 #endif

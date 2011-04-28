@@ -1,19 +1,21 @@
 /*
  *      SDLUtils.h
- *      
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
- *      
+ *
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
+ *
+ *      This file is part of Arkilleved.
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -41,33 +43,33 @@ bool check_collision(SDL_Rect A, SDL_Rect B);
 
 struct Point
 {
-    int x;
-    int y;
+	int x;
+	int y;
 };
 
 void log(std::string message);
 
 enum GameStates
 {
-    STATE_NULL,
-    STATE_INTRO,
-    STATE_TITLE,
-    STATE_LEVEL_1,
-    STATE_LEVEL_2,
-    STATE_GAMEOVER,
-    STATE_EXIT
+	STATE_NULL,
+	STATE_INTRO,
+	STATE_TITLE,
+	STATE_LEVEL_1,
+	STATE_LEVEL_2,
+	STATE_GAMEOVER,
+	STATE_EXIT
 };
 
 enum Textures
 {
-    BRICK_TEX,
-    BRICK_STRONG_TEX,
-    BRICK_BETON_TEX,
-    BRICK_PORTAL_A_TEX,
-    BRICK_PORTAL_B_TEX,
-    BTN_SAVE_TEX,
-    BTN_LOAD_TEX,
-    BG_TEX
+	BRICK_TEX,
+	BRICK_STRONG_TEX,
+	BRICK_BETON_TEX,
+	BRICK_PORTAL_A_TEX,
+	BRICK_PORTAL_B_TEX,
+	BTN_SAVE_TEX,
+	BTN_LOAD_TEX,
+	BG_TEX
 };
 
 #endif

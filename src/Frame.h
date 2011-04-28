@@ -1,8 +1,10 @@
 /*
  *      Frame.h
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2011 Maxim Kachur <mcdebugger@duganet.ru>
+ *
+ *      This file is part of Arkilleved.
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -35,20 +37,20 @@
 class Frame
 {
 public:
-    Frame();
-    ~Frame();
-    bool init();
-    bool initGL();
-    bool load_files();
-    bool main_loop();
-    int get_grid(char, int);
-    void exit();
+	Frame();
+	~Frame();
+	bool init();
+	bool initGL();
+	bool load_files();
+	bool main_loop();
+	int get_grid(char, int);
+	void exit();
 private:
-    SDL_Surface *screen;
+	SDL_Surface *screen;
 
-    SDL_Event event;
-    GLFT_Font font;
-    bool quit;
+	SDL_Event event;
+	GLFT_Font font;
+	bool quit;
 };
 
 #endif
