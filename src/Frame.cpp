@@ -22,7 +22,6 @@
  *      MA 02110-1301, USA.
  */
 
-//#include "config.h"
 #include "Frame.h"
 #include <file.hpp>
 #include <fstream>
