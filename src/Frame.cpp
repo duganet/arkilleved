@@ -34,7 +34,7 @@ extern std::vector<Texture*> textureList;
 Frame::Frame()
 {
 	screen = NULL;
-	quit = false;
+	quit   = false;
 	//font = NULL;
 }
 
@@ -231,7 +231,7 @@ void buttonLoad_click()
 	FILE *FileHandle = fopen("level.map", "r");
 
 	int brickCount = 0;
-	int brickType = 0;
+	int brickType  = 0;
 	fscanf(FileHandle, "%d\n", &brickCount);
 	int X, Y;
 	for (int i = 0; i < brickCount; i++)
@@ -278,13 +278,13 @@ int Frame::get_grid(char axis, int coord)
 	{
 		case 'x':
 			grid_startx = 22;
-			grid_stepx = 29;
-			grid_coord = grid_stepx * (coord / grid_stepx - 1) + grid_startx;
+			grid_stepx  = 29;
+			grid_coord  = grid_stepx * (coord / grid_stepx - 1) + grid_startx;
 			break;
 		case 'y':
 			grid_starty = 53;
-			grid_stepy = 29;
-			grid_coord = grid_stepy * (coord / grid_stepy - 2) + grid_starty;
+			grid_stepy  = 29;
+			grid_coord  = grid_stepy * (coord / grid_stepy - 2) + grid_starty;
 			break;
 	}
 	return grid_coord;

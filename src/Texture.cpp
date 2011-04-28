@@ -37,7 +37,7 @@ Texture::~Texture()
 bool Texture::load_from_file(std::string filename)
 {
 	int mode;
-	int width = 0;
+	int width  = 0;
 	int height = 0;
 
 	SDL_Surface *surface;
@@ -111,7 +111,7 @@ bool Texture::load_from_file(std::string filename)
 bool Texture::load_from_file(std::string filename, int r, int g, int b)
 {
 	int mode;
-	int width = 0;
+	int width  = 0;
 	int height = 0;
 
 	SDL_Surface *surface;
@@ -155,16 +155,16 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
 	int rmask,gmask,bmask,amask;
 
 	#if not SDL_BYTEORDER == SDL_BIG_ENDIAN
-	 rmask = 0xff000000;
-	 gmask = 0x00ff0000;
-	 bmask = 0x0000ff00;
-	 amask = 0x000000ff;
- #else
-	 rmask = 0x000000ff;
-	 gmask = 0x0000ff00;
-	 bmask = 0x00ff0000;
-	 amask = 0xff000000;
- #endif
+		rmask = 0xff000000;
+		gmask = 0x00ff0000;
+		bmask = 0x0000ff00;
+		amask = 0x000000ff;
+	#else
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = 0xff000000;
+	#endif
 
 	SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, 32,
 												rmask,gmask,bmask,amask);
@@ -239,7 +239,7 @@ bool Texture::load_from_surface(SDL_Surface *surface)
 		return false;
 	}
 
-	int width = 0;
+	int width  = 0;
 	int height = 0;
 	w = surface->w;
 	h = surface->h;

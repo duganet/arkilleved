@@ -33,15 +33,14 @@ Frame frame;
 
 Brick::Brick(int type)
 {
-	grid = true;
-	drag = true;
-	this->sprite = sprite;
-	//texture.load_from_surface(sprite);
+	grid  = true;
+	drag  = true;
 	box.x = 300;
 	box.y = 300;
 	box.w = textureList[BRICK_TEX]->w;
 	box.h = textureList[BRICK_TEX]->h;
-	this->type = type;
+	this->sprite = sprite;
+	this->type   = type;
 	std::stringstream ss;
 	for(unsigned int i = 0; i < Brick::brickList.size(); i++)
 	{
@@ -56,7 +55,7 @@ Brick::Brick(int type)
 
 Brick::Brick(int type, int x, int y)
 {
-	drag = false;
+	drag  = false;
 	box.x = x;
 	box.y = y;
 	box.w = textureList[BRICK_TEX]->w;

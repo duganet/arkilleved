@@ -28,21 +28,21 @@ Timer::Timer()
 {
 	startTicks = 0;
 	pauseTicks = 0;
-	started = false;
-	paused = false;
+	started    = false;
+	paused     = false;
 }
 
 void Timer::Start()
 {
-	started = true;
-	paused = false;
+	started    = true;
+	paused     = false;
 	startTicks = SDL_GetTicks();
 }
 
 void Timer::Stop()
 {
-	started = false;
-	paused = false;
+	started    = false;
+	paused     = false;
 }
 
 void Timer::Pause()
